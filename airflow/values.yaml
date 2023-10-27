@@ -1,33 +1,7 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-   name: hln-demo
-   namespace: default
-spec:
-   replicas: 1
-   selector:
-      matchLabels:
-         bb: web
-   template:
-      metadata:
-         labels:
-            bb: web
-      spec:
-         containers:
-            - name: hln-site
-              image: getting-started
-              imagePullPolicy: Never
----
-apiVersion: v1
-kind: Service
-metadata:
-   name: bb-entrypoint
-   namespace: default
-spec:
-   type: NodePort
-   selector:
-      bb: web
-   ports:
-      - port: 3000
-        targetPort: 3000
-        nodePort: 30001
+dags:
+  gitSync:
+    enabled: true
+    repo: ""
+    branch: "${airflow_dag_git_main}"
+    subPath: "dag"
+
