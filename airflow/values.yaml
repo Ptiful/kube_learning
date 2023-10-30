@@ -1,7 +1,0 @@
-dags:
-  gitSync:
-    enabled: true
-    repo: ""
-    branch: "${airflow_dag_git_main}"
-    subPath: "dag"
-
