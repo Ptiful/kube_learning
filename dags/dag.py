@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
+from airflow.operators.bash import BashOperator
 from airflow.operators.docker_operator import DockerOperator
 
+
 # kubernator operator instead of docker operator
-# git sync in values.yaml
-# sync repo
+
 default_args = {
     "owner": "paul",
     "depends_on_past": False,
@@ -23,7 +24,11 @@ with DAG(
     schedule_interval="@daily",
     catchup=False,
 ) as dag:
-    task_1 = DockerOperator(
+    # task_1 = DockerOperator(
+    #     task_id="hln_scraper",
+    #     image="paulstrazzulla/hln_scraper:latest",
+    task_1 = BashOperator(
         task_id="hln_scraper",
-        image="paulstrazzulla/hln_scraper:latest",
+        bash_command="ls",
     )
+    task_1
