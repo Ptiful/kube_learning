@@ -1,9 +1,6 @@
 from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators.python import PythonOperator, BranchPythonOperator
-from airflow.operators.bash import BashOperator
-from airflow.operators.docker_operator import DockerOperator
-
+from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
 
 # kubernator operator instead of docker operator
 
@@ -24,12 +21,13 @@ with DAG(
     schedule_interval="@daily",
     catchup=False,
 ) as dag:
-    # task_1 = DockerOperator(
-    #     task_id="hln_scraper",
-    #     image="paulstrazzulla/hln_scraper:latest",
-    task_1 = BashOperator(
-        task_id="hln_scraper",
-        bash_command="ls",
+    task_1 = KubernetesPodOperator(
+        name="hln_scraper",
+        image="paulstrazzulla/hln_scraper:latest",
+        image_pull_policy="always",
+        labels={"pipeline": "test_docker_pipeline"},
+        task_id='task___test-run-hln_scraper',
+
     )
     task_1
-#coucou maxim
+
