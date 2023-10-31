@@ -26,8 +26,8 @@ with DAG(
         image="paulstrazzulla/hln_scraper:latest",
         image_pull_policy="always",
         labels={"pipeline": "test_docker_pipeline"},
-        task_id='task___test-run-hln_scraper',
-
+        task_id="task___test-run-hln_scraper",
     )
     task_1
 
+# coucou Mina
