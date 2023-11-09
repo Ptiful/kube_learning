@@ -83,19 +83,19 @@ def save_json(articles):
         json.dump(articles, f)
 
 
-def save_articles_to_db(articles):
-    """Create a connection with MangoDB and upload database"""
-    MONGODB_URI = os.getenv("MONGODB_URI")
-    database_name = "bouman_datatank"
-    collection_name = "articles"
-    client = pymongo.MongoClient(MONGODB_URI)
-    database = client[database_name]
-    collection = database[collection_name]
+# def save_articles_to_db(articles):
+#     """Create a connection with MangoDB and upload database"""
+#     MONGODB_URI = os.getenv("MONGODB_URI")
+#     database_name = "bouman_datatank"
+#     collection_name = "articles"
+#     client = pymongo.MongoClient(MONGODB_URI)
+#     database = client[database_name]
+#     collection = database[collection_name]
 
-    for article in tqdm.tqdm(articles):
-        if not collection.find_one({"url": {"$eq": article["url"]}}):
-            collection.insert_one(article)
-    # collection.insert_many(articles)
+#     for article in tqdm.tqdm(articles):
+#         if not collection.find_one({"url": {"$eq": article["url"]}}):
+#             collection.insert_one(article)
+#     # collection.insert_many(articles)
 
 
 def main():

@@ -29,5 +29,3 @@ with DAG(
         task_id="task___test-run-hln_scraper",
     )
     task_1
-
-# coucou Mina

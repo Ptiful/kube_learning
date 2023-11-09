@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: python-pod
+  namespace: airflow
+spec:
+  containers:
+  - name: python-container
+    image: paulstrazzulla/db_record
+    imagePullPolicy: Always
+    env:
+      - name: MONGODB_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: mongodb-auth
+            key: password
+
+      - name: MONGODB_USERNAME
+        valueFrom:
+          secretKeyRef:
+            name: mongodb-auth
+            key: username
+
+      - name: MONGODB_HOST
+        valueFrom:
+          secretKeyRef:
+            name: mongodb-auth
+            key: host
+
+
+# {
+#   mongodb-host: {
+#     username: "root",
+#     passowrd: 123,
+#     host: "my-mongodb.airflow.svc.cluster.local"
+#   }
+# }
